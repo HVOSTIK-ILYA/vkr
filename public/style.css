@@ -1,0 +1,291 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.logo-area{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo-img{
+    width: 50px;
+    height: 50px;
+}
+.logo-text{
+    font-size: 37px;
+    font-weight: bold;
+}
+.popout-container{
+    position: relative;
+    display: inline-block;
+}
+.account-btn{
+    background-color: black;
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.popout {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.popout-screen{
+    display: none;
+    background-color: black;
+    color: white;
+    border: 10px solid red;
+}
+.popout-screen.active{
+    display: block;
+}
+.popout-menu{
+    width: 1350px;
+    height: 500px;
+}
+.login-text{
+    text-align: center;
+    font-size: 100px;
+}
+.popout-buttons{
+    display: flex;
+    gap: 12px;
+}
+.popout-option{
+    text-align: center;
+    border-radius: 60px;
+}
+.popout-login{
+    width: 400px;
+}
+.display-1{
+}
+.block-1{
+    background-image: url('images/block-1-img.png');
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 120px;
+    padding: 50px 150px;
+    border: black solid 1px;
+    margin: 0px 20px;
+    margin-top: 10px;
+    font-size: 20px;
+    height: 440px;
+}
+.auto-plata{
+    width: 570px;
+    height: 330px;
+    border-radius: 50px;
+}
+.info-area{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.info-btn{
+    background-color: white;
+    margin: 0px 0px;
+    border: black solid 1px;
+    font-size: 20px;
+    font-weight: bold;
+}
+#info-btn-1{
+    padding: 60px 30px;
+    border-top: 0;
+    border-right: 0;
+}
+#info-btn-2{
+    border-top: 0;
+    border-right: 0;
+}
+#info-btn-3{
+    border-top: 0;
+    border-right: 0;
+}
+#info-btn-4{
+    border-top: 0;
+}
+.display-2{
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    border: black solid 1px;
+    margin: 0px 20px;
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    height: 710px;
+}
+.block-2{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    flex:1;       
+}
+.img-block{
+    width: 320px;
+    height: 350px;
+}
+
+.h1{
+    font-size: 70px;
+    font-weight: bold;
+}
+.payment-area-1{
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: black solid 1px;
+}
+.columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+.column-1,
+.column-2 {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+
+}
+.img-column-1{
+    width: 200px;
+    height: 200px;
+}
+
+.forma{
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    border: 2px dotted black;
+    padding: 5px;
+}
+input{
+    font-size: 20px;
+}
+.forma::placeholder{
+    color: rgb(123, 123, 123);
+    font-size: 20px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-style: solid;
+  border-color: #000; /* или другой цвет */
+}
+button {
+  border: none;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+.bnt-1{
+    background-color: black;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+.display-3{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0px;
+    border: black solid 1px;
+    margin: 0px 20px;
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    height: 710px;
+}
+.block-3{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    flex:1;       
+}
+.img-block{
+    width: 320px;
+    height: 350px;
+}
+
+.h1{
+    font-size: 70px;
+    font-weight: bold;
+}
+.payment-area-2{
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: black solid 1px;
+}
+.columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+.column-1,
+.column-2 {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+
+}
+.img-column-1{
+    width: 200px;
+    height: 200px;
+}
+.bnt-2{
+    background-color: black;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 70px;
+}

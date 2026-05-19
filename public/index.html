@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Логотип" class="logo-img">
+            <span class="logo-text">Новосибирскэнергосбыт</span>
+        </div>
+        <div class="popout-container" style="position: relative; display: inline-block;">
+            <button id="accountBtn" class="account-btn">Личный кабинет</button>
+        <div id="account-popout" class="popout">
+            <div class="popout-screen popout-menu">
+                <h3 class="login-text">Личный кабинет</h3>
+                <div class="popout-buttons">
+                    <button id="loginOption" class="popout-option">Войти</button>
+                    <button id="registerOption" class="popout-option">Зарегистрироваться</button>
+                </div>
+            </div>
+            <div class="popout-screen popout-login">
+                <button class="popout-back">Назад</button>
+                <h3>Вход</h3>
+                <input type="email" id="loginEmail" class="popout-input" placeholder="Email" autocomplete="email">
+                <input type="password" id="loginPassword" class="popout-input" placeholder="Пароль" autocomplete="current-password">
+                <button id="submitlogin" class="popout-submit">Войти</button>
+            </div>
+            <div class="popout-screen popout-register">
+                <button class="popout-back">Назад</button>
+                <h3>Регистрация</h3>
+                <input type="email" id="registerEmail" class="popout-input" placeholder="Email" autocomplete="email">
+                <input type="password" id="registerPassword" class="popout-input" placeholder="Пароль" autocomplete="new-password">
+                <input type="number" id="registerLS" class="popout-input" placeholder="Номер лицевого счета">
+                <input type="tel" id="ragisterPhone" class="popout-input" placeholder="Номер телефона" autocomplete="tel">
+                <button id="submitregister" class="popout-submit">Зарегистрироваться</button>
+            </div>
+        </div>
+        </div>
+        
+    </header>
+    <main>
+        <div class="display-1">
+            <section class="block-1">
+                <h1>В мобильном приложении «Платосфера» теперь доступна новая услуга - «Автоплатеж за свет»</h1>
+                <img src="images/auto-plata.png" class="auto-plata">
+            </section>
+            <section class="info-area">
+                <button class="info-btn" id="info-btn-1">Для физических лиц</button>
+                <button class="info-btn" id="info-btn-2">Для представителей органов власти</button>
+                <button class="info-btn" id="info-btn-3">Для юридических лиц</button>
+                <button class="info-btn" id="info-btn-4">Сфера энергии</button>
+            </section>
+        </div>
+        <div class="display-2">
+            <section class="block-2">
+                <h1 class="h1">По адресу</h1>
+                <img class="img-block" src="images/by-adress.png">
+            </section>
+            <section class="payment-area-1">
+                <div class="columns">
+                    <section class="column-1">
+                        <img class="img-column-1" src="images/punkt-1.png">
+                        <h2>Населенный пункт, улица (микрорайон, квартал, ДНП, иное), номер дома</h2>
+                        <input class="forma" type="text" id="addressInput" name="address" placeholder="Введите адрес" required>
+                    </section>
+                    <section class="column-2">
+                        <img class="img-column-1" src="images/number-appartment.png">
+                        <h2>Номер квартиры (если есть)</h2>
+                        <input class="forma" type="number" id="number-appartment-Input" name="number-appartment" placeholder="Введите номер квартиры" required>
+                </section>
+                </div>                
+                <button class="bnt-1">Оплатить</button>
+            </section>
+        </div>
+        <div class="display-3">
+            <section class="block-3">
+                <h1 class="h1">По лицевому счету</h1>
+                <img class="img-block" src="images/by-ls.png">
+            </section>
+            <section class="payment-area-2">
+                <div class="columns">
+                    <section class="column-1">
+                        <img class="img-column-1" src="images/distrikt.png">
+                        <h2>Район</h2>
+                        <input class="forma" type="text" id="districtInput" name="district" placeholder="Введите район" required>
+                    </section>
+                    <section class="column-2">
+                        <img class="img-column-1" src="images/number-ls.png">
+                        <h2>Номер лицевого счета</h2>
+                        <input class="forma" type="number" id="lsInput" name="ls" placeholder="Введите номер лицевого счета" required>
+                    </section>
+                </div>
+                <button class="bnt-2">Оплатить</button>
+            </section>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>
