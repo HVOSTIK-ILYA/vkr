@@ -81,21 +81,33 @@
                 <h1 class="h1">По лицевому счету</h1>
                 <img class="img-block" src="images/by-ls.png">
             </section>
-            <section class="payment-area-2">
+            <form class="payment-area-2" method="post" action="save.php">
                 <div class="columns">
                     <section class="column-1">
                         <img class="img-column-1" src="images/distrikt.png">
                         <h2>Район</h2>
-                        <input class="forma" type="text" id="districtInput" name="district" placeholder="Введите район" required>
+                        <select class="forma" id="districtInput" name="district" required>
+                            <option value="">-- Выберите район --</option>
+                            <option value="Октябрьский">Октябрьский</option>
+                            <option value="Ленинский">Ленинский</option>
+                            <option value="Кировский">Кировский</option>
+                            <option value="Советский">Советский</option>
+                            <option value="Первомайский">Первомайский</option>
+                            <option value="Центральный">Центральный</option>
+                            <option value="Железнодорожный">Железнодорожный</option>
+                            <option value="Заельцовский">Заельцовский</option>
+                            <option value="Калининский">Калининский</option>
+                            <option value="Дзержинский">Дзержинский</option>
+                        </select>
                     </section>
                     <section class="column-2">
                         <img class="img-column-1" src="images/number-ls.png">
                         <h2>Номер лицевого счета</h2>
-                        <input class="forma" type="number" id="lsInput" name="ls" placeholder="Введите номер лицевого счета" required>
+                        <input class="forma" type="text" id="lsInput" name="account_number" placeholder="Введите 6 цифр" maxlength="6" pattern="\d{6}" required>
                     </section>
                 </div>
-                <button class="bnt-2">Оплатить</button>
-            </section>
+                <button class="bnt-2" type="submit">Оплатить</button>
+            </form>
         </div>
     </main>
     <footer></footer>
