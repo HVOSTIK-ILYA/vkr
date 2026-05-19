@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Новосибирскэнергосбыт</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,33 +12,33 @@
             <img src="images/logo.png" alt="Логотип" class="logo-img">
             <span class="logo-text">Новосибирскэнергосбыт</span>
         </div>
-        <div class="popout-container" style="position: relative; display: inline-block;">
+        <div class="popout-container">
             <button id="accountBtn" class="account-btn">Личный кабинет</button>
-        <div id="account-popout" class="popout">
-            <div class="popout-screen popout-menu">
-                <h3 class="login-text">Личный кабинет</h3>
-                <div class="popout-buttons">
-                    <button id="loginOption" class="popout-option">Войти</button>
-                    <button id="registerOption" class="popout-option">Зарегистрироваться</button>
+            <div id="account-popout" class="popout">
+                <div class="popout-screen popout-menu">
+                    <h3 class="login-text">Личный кабинет</h3>
+                    <div class="popout-buttons">
+                        <button id="loginOption" class="popout-option">Войти</button>
+                        <button id="registerOption" class="popout-option">Зарегистрироваться</button>
+                    </div>
+                </div>
+                <div class="popout-screen popout-login">
+                    <button class="popout-back">Назад</button>
+                    <h3>Вход</h3>
+                    <input type="email" id="loginEmail" class="popout-input" placeholder="Email" autocomplete="email">
+                    <input type="password" id="loginPassword" class="popout-input" placeholder="Пароль" autocomplete="current-password">
+                    <button id="submitlogin" class="popout-submit">Войти</button>
+                </div>
+                <div class="popout-screen popout-register">
+                    <button class="popout-back">Назад</button>
+                    <h3>Регистрация</h3>
+                    <input type="email" id="registerEmail" class="popout-input" placeholder="Email" autocomplete="email">
+                    <input type="password" id="registerPassword" class="popout-input" placeholder="Пароль" autocomplete="new-password">
+                    <input type="number" id="registerLS" class="popout-input" placeholder="Номер лицевого счета">
+                    <input type="tel" id="registerPhone" class="popout-input" placeholder="Номер телефона" autocomplete="tel">
+                    <button id="submitregister" class="popout-submit">Зарегистрироваться</button>
                 </div>
             </div>
-            <div class="popout-screen popout-login">
-                <button class="popout-back">Назад</button>
-                <h3>Вход</h3>
-                <input type="email" id="loginEmail" class="popout-input" placeholder="Email" autocomplete="email">
-                <input type="password" id="loginPassword" class="popout-input" placeholder="Пароль" autocomplete="current-password">
-                <button id="submitlogin" class="popout-submit">Войти</button>
-            </div>
-            <div class="popout-screen popout-register">
-                <button class="popout-back">Назад</button>
-                <h3>Регистрация</h3>
-                <input type="email" id="registerEmail" class="popout-input" placeholder="Email" autocomplete="email">
-                <input type="password" id="registerPassword" class="popout-input" placeholder="Пароль" autocomplete="new-password">
-                <input type="number" id="registerLS" class="popout-input" placeholder="Номер лицевого счета">
-                <input type="tel" id="ragisterPhone" class="popout-input" placeholder="Номер телефона" autocomplete="tel">
-                <button id="submitregister" class="popout-submit">Зарегистрироваться</button>
-            </div>
-        </div>
         </div>
         
     </header>

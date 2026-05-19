@@ -28,7 +28,7 @@ body {
 .account-btn{
     background-color: black;
     color: white;
-    padding: 10px 10px;
+    padding: 10px;
     text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
@@ -67,8 +67,6 @@ body {
 .popout-login{
     width: 400px;
 }
-.display-1{
-}
 .block-1{
     background-image: url('images/block-1-img.png');
     display: flex;
@@ -77,8 +75,7 @@ body {
     gap: 120px;
     padding: 50px 150px;
     border: black solid 1px;
-    margin: 0px 20px;
-    margin-top: 10px;
+    margin: 10px 20px 0;
     font-size: 20px;
     height: 440px;
 }
@@ -89,14 +86,14 @@ body {
 }
 .info-area{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 0px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
     margin-left: 20px;
     margin-right: 20px;
 }
 .info-btn{
     background-color: white;
-    margin: 0px 0px;
+    margin: 0;
     border: black solid 1px;
     font-size: 20px;
     font-weight: bold;
@@ -120,12 +117,10 @@ body {
 .display-2{
     display: flex;
     flex-direction: row;
-    gap: 0px;
+    gap: 0;
     border: black solid 1px;
-    margin: 0px 20px;
-    margin-top: 10px;
+    margin: 10px 20px 20px;
     font-size: 20px;
-    margin-bottom: 20px;
     height: 710px;
 }
 .block-2{
@@ -134,13 +129,12 @@ body {
     text-align: center;
     flex-direction: column;
     align-items: center;
-    flex:1;       
+    flex:1;
 }
 .img-block{
     width: 320px;
     height: 350px;
 }
-
 .h1{
     font-size: 70px;
     font-weight: bold;
@@ -167,13 +161,11 @@ body {
     align-items: center;
     justify-items: center;
     text-align: center;
-
 }
 .img-column-1{
     width: 200px;
     height: 200px;
 }
-
 .forma{
     width: 300px;
     height: 30px;
@@ -181,8 +173,16 @@ body {
     border: 2px dotted black;
     padding: 5px;
 }
-input{
+input,
+select {
     font-size: 20px;
+}
+select.forma {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
 }
 .forma::placeholder{
     color: rgb(123, 123, 123);
@@ -193,7 +193,6 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 input[type="number"] {
   -moz-appearance: textfield;
 }
@@ -202,13 +201,12 @@ textarea:focus,
 select:focus {
   outline: none;
   border-style: solid;
-  border-color: #000; /* или другой цвет */
+  border-color: #000;
 }
 button {
   border: none;
   outline: none;
 }
-
 button:focus {
   outline: none;
   box-shadow: none;
@@ -226,12 +224,10 @@ button:focus {
 .display-3{
     display: flex;
     flex-direction: row-reverse;
-    gap: 0px;
+    gap: 0;
     border: black solid 1px;
-    margin: 0px 20px;
-    margin-top: 10px;
+    margin: 10px 20px 20px;
     font-size: 20px;
-    margin-bottom: 20px;
     height: 710px;
 }
 .block-3{
@@ -240,16 +236,7 @@ button:focus {
     text-align: center;
     flex-direction: column;
     align-items: center;
-    flex:1;       
-}
-.img-block{
-    width: 320px;
-    height: 350px;
-}
-
-.h1{
-    font-size: 70px;
-    font-weight: bold;
+    flex:1;
 }
 .payment-area-2{
     display: flex;
@@ -260,24 +247,6 @@ button:focus {
     margin: 20px;
     padding: 20px;
     border: black solid 1px;
-}
-.columns{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-.column-1,
-.column-2 {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-
-}
-.img-column-1{
-    width: 200px;
-    height: 200px;
 }
 .bnt-2{
     background-color: black;
