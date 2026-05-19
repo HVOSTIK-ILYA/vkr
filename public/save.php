@@ -40,7 +40,7 @@ if (!in_array($district, $allowed_districts)) {
     die("Ошибка: выбран неверный район.");
 }
 
-$stmt = $mysqli->prepare("INSERT INTO applications (district, account_number) VALUES (?, ?)");
+$stmt = $mysqli->prepare("INSERT INTO by_ls (district, account_number) VALUES (?, ?)");
 
 if ($stmt === false) {
     die("Ошибка подготовки запроса: " . $mysqli->error);

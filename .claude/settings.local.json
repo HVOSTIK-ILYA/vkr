@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "PowerShell(Get-ChildItem \"D:\\\\APPS\\\\OSP\\\\OSPanel\\\\home\\\\vkr.local\\\\public\" | Where-Object { !$_.PSIsContainer } | Select-Object Name)",
+      "PowerShell(& \"D:\\\\APPS\\\\OSP\\\\OSPanel\\\\modules\\\\MySQL-8.0\\\\bin\\\\mysql.exe\" -h 127.0.1.30 -u root -e \"DESCRIBE vkr_db.applications;\")"
     ]
   }
 }
