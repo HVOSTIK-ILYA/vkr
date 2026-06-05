@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    min-width: 360px;
 }
 .site-header {
     display: flex;
@@ -72,17 +73,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 120px;
-    padding: 50px 150px;
+    gap: clamp(20px, 5vw, 120px);
+    padding: clamp(20px, 4vw, 50px) clamp(20px, 8vw, 150px);
     border: black solid 1px;
     margin: 10px 20px 0;
-    font-size: 20px;
-    height: 440px;
+    font-size: clamp(14px, 1.5vw, 20px);
+    height: auto;
+    min-height: 200px;
 }
 .auto-plata{
-    width: 570px;
-    height: 330px;
-    border-radius: 50px;
+    width: clamp(200px, 40%, 570px);
+    height: auto;
+    border-radius: clamp(15px, 3vw, 50px);
+    flex-shrink: 0;
 }
 .info-area{
     display: grid;
@@ -265,4 +268,46 @@ button:focus {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 70px;
+}
+
+@media (max-width: 700px) {
+    .logo-text {
+        display: none;
+    }
+
+    .block-1 {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 20px;
+        height: auto;
+        font-size: 4vw;
+    }
+
+    .block-1 h1 {
+        font-size: 1em;
+        margin: 0;
+    }
+
+    .auto-plata {
+        width: 80vw;
+        max-width: 400px;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .info-area {
+        grid-template-columns: 1fr;
+    }
+
+    #info-btn-1,
+    #info-btn-2,
+    #info-btn-3 {
+        border-right: black solid 1px;
+        border-bottom: 0;
+    }
+
+    #info-btn-4 {
+        border-top: 0;
+    }
 }
