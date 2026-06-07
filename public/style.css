@@ -22,10 +22,6 @@ body {
     font-size: 37px;
     font-weight: bold;
 }
-.popout-container{
-    position: relative;
-    display: inline-block;
-}
 .account-btn{
     background-color: black;
     color: white;
@@ -33,40 +29,6 @@ body {
     text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
-}
-.popout {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.popout-screen{
-    display: none;
-    background-color: black;
-    color: white;
-    border: 10px solid red;
-}
-.popout-screen.active{
-    display: block;
-}
-.popout-menu{
-    width: 1350px;
-    height: 500px;
-}
-.login-text{
-    text-align: center;
-    font-size: 100px;
-}
-.popout-buttons{
-    display: flex;
-    gap: 12px;
-}
-.popout-option{
-    text-align: center;
-    border-radius: 60px;
-}
-.popout-login{
-    width: 400px;
 }
 .block-1{
     background-image: url('images/block-1-img.png');
@@ -103,6 +65,15 @@ body {
     font-weight: bold;
     padding: 50px 20px;
 }
+#info-btn-1 {
+    border-right: black solid 1px;
+}
+#info-btn-2 {
+    border-right: black solid 1px;
+}
+#info-btn-3 {
+    border-right: black solid 1px;
+}
 .display-2{
     display: flex;
     flex-direction: row;
@@ -124,9 +95,10 @@ body {
     width: 340px;
     height: 340px;
 }
-.h1{
-    font-size: 70px;
+.label-for-form{
+    font-size: 30px;
     font-weight: bold;
+    padding: 2rem 0.25rem;
 }
 .payment-area-1{
     display: flex;
@@ -289,5 +261,36 @@ button:focus {
     .info-btn {
         border-bottom: 1px solid black;
         padding: 20px 5px;
-    }    
+    }
+    #info-btn-1 {
+        border-right: none;
+    }
+    #info-btn-2 {
+        border-right: none;
+    }
+    #info-btn-3 {
+        border-right: none;
+    }
+
+    .display-2 {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .block-2,
+    .payment-area-1 {
+        flex: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .display-2 .img-block,
+    .display-2 .img-column-1 {
+        display: none;
+    }
+
+    .columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }
