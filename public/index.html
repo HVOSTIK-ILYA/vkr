@@ -48,25 +48,7 @@
                     </section>
                 </div>                
                 <button class="bnt-1" type="submit">Оплатить</button>
-            </form>
-            <script>
-                document.getElementById('number-appartment-Input').addEventListener('input', function() {
-                    this.value = this.value.replace(/\D/g, '').slice(0, 3);
-                });
-                document.getElementById('form-adress').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const data = new FormData(this);
-                    fetch('check_adress.php', { method: 'POST', body: data })
-                        .then(r => r.json())
-                        .then(res => {
-                            if (res.status === 'found') {
-                                window.location.href = 'sms.php';
-                            } else {
-                                document.getElementById('nodebts-adress-msg').style.visibility = 'visible';
-                            }
-                        });
-                });
-            </script>
+            </form>            
         </div>
         <div class="display-3">
             <section class="block-3">
@@ -77,7 +59,7 @@
                 <div class="columns">
                     <section class="column-1">
                         <img class="img-column-1" src="images/distrikt.png">
-                        <h2>Район</h2>
+                        <label for="district" class="label-for-form">Район</label>
                         <select class="forma" id="districtInput" name="district" required>
                             <option value="">Выберите район</option>
                             <option value="Октябрьский">Октябрьский</option>
@@ -94,7 +76,7 @@
                     </section>
                     <section class="column-2">
                         <img class="img-column-1" src="images/number-ls.png">
-                        <h2>Номер лицевого счета</h2>
+                        <label for="account_number" class="label-for-form">Номер лицевого счета</label>
                         <input class="forma" type="text" id="lsInput" name="account_number" placeholder="Введите 6 цифр" maxlength="6" pattern="\d{6}" required>
                     </section>
                 </div>
@@ -102,22 +84,7 @@
                     Задолженность отсутствует
                 </div>
                 <button class="bnt-2" type="submit">Оплатить</button>
-            </form>
-            <script>
-                document.getElementById('form-ls').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const data = new FormData(this);
-                    fetch('check.php', { method: 'POST', body: data })
-                        .then(r => r.json())
-                        .then(res => {
-                            if (res.status === 'found') {
-                                window.location.href = 'sms.php';
-                            } else {
-                                document.getElementById('nodebts-msg').style.visibility = 'visible';
-                            }
-                        });
-                });
-            </script>
+            </form>            
         </div>
     </main>
     <footer></footer>

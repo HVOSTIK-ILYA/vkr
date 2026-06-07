@@ -41,7 +41,7 @@ body {
     margin: 10px 20px 0;
     font-size: clamp(14px, 1.5vw, 20px);
     height: auto;
-    min-height: 437px;
+    min-height: 520px;
 }
 .auto-plata{
     width: clamp(200px, 40%, 570px);
@@ -214,7 +214,7 @@ button:focus {
     display: flex;
     flex:1;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     margin: 20px;
     padding: 20px;
@@ -228,7 +228,7 @@ button:focus {
     border-radius: 10px;
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 @media (max-width: 700px) {
@@ -264,22 +264,18 @@ button:focus {
         padding: 20px 5px;
     } 
     #info-btn-1 {
-        border-left: black solid 1px;
         border-top: black solid 1px;
         border-right: none;
 }
     #info-btn-2 {
-        border-left: black solid 1px;
         border-top: black solid 1px;
         border-right: none;
     }
     #info-btn-3 {
-        border-left: black solid 1px;
         border-top: black solid 1px;
         border-right: none;
     }   
     #info-btn-4 {
-        border-left: black solid 1px;
         border-top: black solid 1px;        
     }
     .h1 {
@@ -287,10 +283,7 @@ button:focus {
         padding: 0px;
         font-size: 3rem;
     }
-    .bnt-1, .bnt-2 {
-        margin: 20px;
-        margin-top: 30px
-    }
+    
     .label-for-form{
         font-size: 1.5rem;
         font-weight: bold;
@@ -303,28 +296,17 @@ button:focus {
         height: auto;
     }
 
-    .block-2,
-    .block-3,
-    .payment-area-1,
-    .payment-area-2 {
-        flex: none;
+    .block-2, .block-3 {
         width: auto;
-        margin: 20px;
         box-sizing: border-box;
-        justify-content: flex-start;
     }
-    
+    .columns {
+        display: flex;
+    }    
     .display-2 .img-block,
     .display-2 .img-column-1,
     .display-3 .img-block,
     .display-3 .img-column-1 {
         display: none;
-    }
-    .columns {
-        grid-template-columns: 1fr;
-    }
-    .forma {
-        width: 100%;
-        max-width: 300px;
     }
 }
