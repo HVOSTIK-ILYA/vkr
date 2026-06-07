@@ -75,11 +75,11 @@ body {
     align-items: center;
     gap: clamp(20px, 5vw, 120px);
     padding: clamp(20px, 4vw, 50px) clamp(20px, 8vw, 150px);
-    border: black solid 1px;
+    border: rgb(0, 0, 0) solid 1px;
     margin: 10px 20px 0;
     font-size: clamp(14px, 1.5vw, 20px);
     height: auto;
-    min-height: 200px;
+    min-height: 437px;
 }
 .auto-plata{
     width: clamp(200px, 40%, 570px);
@@ -93,29 +93,15 @@ body {
     gap: 0;
     margin-left: 20px;
     margin-right: 20px;
+    border: black solid 1px;
+    border-top: 0;
 }
 .info-btn{
     background-color: white;
-    margin: 0;
-    border: black solid 1px;
+    margin: 0;    
     font-size: 20px;
     font-weight: bold;
-}
-#info-btn-1{
-    padding: 60px 30px;
-    border-top: 0;
-    border-right: 0;
-}
-#info-btn-2{
-    border-top: 0;
-    border-right: 0;
-}
-#info-btn-3{
-    border-top: 0;
-    border-right: 0;
-}
-#info-btn-4{
-    border-top: 0;
+    padding: 50px 20px;
 }
 .display-2{
     display: flex;
@@ -278,36 +264,30 @@ button:focus {
     .block-1 {
         flex-direction: column;
         align-items: center;
+        text-align: center;
         gap: 30px;
         padding: 30px 20px;
         height: auto;
         font-size: 4vw;
+        min-height: auto;
     }
 
     .block-1 h1 {
-        font-size: 1em;
+        font-size: 2em;
         margin: 0;
     }
 
     .auto-plata {
-        width: 80vw;
-        max-width: 400px;
-        height: auto;
-        border-radius: 20px;
+        display: none;
     }
 
     .info-area {
         grid-template-columns: 1fr;
-    }
-
-    #info-btn-1,
-    #info-btn-2,
-    #info-btn-3 {
-        border-right: black solid 1px;
+        order: black solid 1px;
         border-bottom: 0;
     }
-
-    #info-btn-4 {
-        border-top: 0;
-    }
+    .info-btn {
+        border-bottom: 1px solid black;
+        padding: 20px 5px;
+    }    
 }
