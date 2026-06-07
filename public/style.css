@@ -91,6 +91,9 @@ body {
     align-items: center;
     flex:1;
 }
+.h1 {
+    font-size: 5rem;
+}
 .img-block{
     width: 340px;
     height: 340px;
@@ -242,6 +245,7 @@ button:focus {
         height: auto;
         font-size: 4vw;
         min-height: auto;
+        border-bottom:none;
     }
 
     .block-1 h1 {
@@ -255,42 +259,72 @@ button:focus {
 
     .info-area {
         grid-template-columns: 1fr;
-        order: black solid 1px;
-        border-bottom: 0;
     }
-    .info-btn {
-        border-bottom: 1px solid black;
+    .info-btn {       
         padding: 20px 5px;
-    }
+    } 
     #info-btn-1 {
+        border-left: black solid 1px;
+        border-top: black solid 1px;
         border-right: none;
-    }
+}
     #info-btn-2 {
+        border-left: black solid 1px;
+        border-top: black solid 1px;
         border-right: none;
     }
     #info-btn-3 {
+        border-left: black solid 1px;
+        border-top: black solid 1px;
         border-right: none;
+    }   
+    #info-btn-4 {
+        border-left: black solid 1px;
+        border-top: black solid 1px;        
     }
-
-    .display-2 {
+    .h1 {
+        margin: 15px 0px;
+        padding: 0px;
+        font-size: 3rem;
+    }
+    .bnt-1, .bnt-2 {
+        margin: 20px;
+        margin-top: 30px
+    }
+    .label-for-form{
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem 0.25rem;
+    }
+    
+    .display-2,
+    .display-3 {
         flex-direction: column;
         height: auto;
     }
 
     .block-2,
-    .payment-area-1 {
+    .block-3,
+    .payment-area-1,
+    .payment-area-2 {
         flex: none;
-        width: 100%;
+        width: auto;
+        margin: 20px;
         box-sizing: border-box;
+        justify-content: flex-start;
     }
-
+    
     .display-2 .img-block,
-    .display-2 .img-column-1 {
+    .display-2 .img-column-1,
+    .display-3 .img-block,
+    .display-3 .img-column-1 {
         display: none;
     }
-
     .columns {
         grid-template-columns: 1fr;
-        gap: 20px;
+    }
+    .forma {
+        width: 100%;
+        max-width: 300px;
     }
 }
