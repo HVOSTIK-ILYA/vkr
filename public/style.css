@@ -29,6 +29,7 @@ body {
     text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
+    border: none;
 }
 .block-1{
     background-image: url('images/block-1-img.png');
@@ -64,6 +65,10 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding: 50px 20px;
+    border: none;
+}
+.info-btn:hover {
+    background: rgba(237, 237, 237, 0.797);
 }
 #info-btn-1 {
     border-right: black solid 1px;
@@ -74,161 +79,106 @@ body {
 #info-btn-3 {
     border-right: black solid 1px;
 }
-.display-2{
+.display-2 {
     display: flex;
-    flex-direction: row;
-    gap: 0;
-    border: black solid 1px;
-    margin: 10px 20px 20px;
-    font-size: 20px;
-    height: 710px;
+    margin: 20px;
+    border: rgb(0, 0, 0) solid 1px;    
 }
-.block-2{
-    justify-content: center;
+.block-2, .block-3 {
     display: flex;
-    text-align: center;
+    flex: 1;
     flex-direction: column;
     align-items: center;
-    flex:1;
+    justify-content: center;
+    gap: 25px;
 }
 .h1 {
     font-size: 5rem;
-}
-.img-block{
-    width: 340px;
-    height: 340px;
-}
-.label-for-form{
-    font-size: 30px;
-    font-weight: bold;
-    padding: 2rem 0.25rem;
-}
-.payment-area-1{
-    display: flex;
-    flex:1;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px;
-    padding: 20px;
-    border: black solid 1px;
-}
-.columns{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-.column-1,
-.column-2 {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    align-items: center;
-    justify-items: center;
     text-align: center;
 }
-.img-column-1{
-    width: 200px;
-    height: 200px;
-}
-.forma{
+.img-block {
+    height: 300px;
     width: 300px;
-    height: 50px;
-    border-radius: 10px;
-    border: 2px dotted black;
-    padding: 5px;
-    box-sizing: border-box;
+    margin: 50px;
+}
+.payment-area-1, .payment-area-2 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 20px;
+    border: rgb(0, 0, 0) solid 1px;
+    align-items: center;
+}
+.columns {
+    display: flex;
+    flex-direction: row;
+    flex: 4;
+    padding: 10px;
+    gap: 10px;
+}
+.column-1, .column-2 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;   
+    justify-content: space-between;    
+    gap: 1px;
+}
+.label-for-form {
     text-align: center;
+    font-size: 1.5rem;
 }
-input,
-select {
-    font-size: 20px;
-}
-select.forma {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: white;
+.forma {
+    font-size: 1.5rem;
+    border-style: dotted;
+    border-color: rgb(92, 92, 92);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    color: rgb(92, 92, 92);
+    background: white;
     cursor: pointer;
 }
-select.forma:required:invalid {
-    color: rgb(123, 123, 123);
+select {
+    appearance: none;
 }
-select.forma option {
-    color: black;
+input::placeholder {
+    color: rgb(92, 92, 92);
 }
-.forma::placeholder{
-    color: rgb(123, 123, 123);
-    font-size: 20px;
+
+input:focus {
+    outline: none;
+    border-style: solid;
+    border-color: black;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.btn {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-style: solid;
-  border-color: #000;
-}
-button {
-  border: none;
-  outline: none;
-}
-button:focus {
-  outline: none;
-  box-shadow: none;
-}
-.bnt-1{
-    background-color: black;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
+.btn-1 {
+    font-size: 1.5rem;
+    padding: 15px 25px;
     border-radius: 10px;
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 50px;
+    border: none;
+    background: black;
+    color: white;
 }
-.display-3{
+.btn-1:hover {
+    background: rgb(92, 92, 92);
+    cursor: pointer;
+}
+.img-column-1 {
+    height: 250px;
+    width: 250px;
+}
+.display-3 {
     display: flex;
     flex-direction: row-reverse;
-    gap: 0;
-    border: black solid 1px;
-    margin: 10px 20px 20px;
-    font-size: 20px;
-    height: 710px;
-}
-.block-3{
-    justify-content: center;
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    flex:1;
-}
-.payment-area-2{
-    display: flex;
-    flex:1;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
     margin: 20px;
-    padding: 20px;
-    border: black solid 1px;
-}
-.bnt-2{
-    background-color: black;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 50px;
+    border: rgb(0, 0, 0) solid 1px; 
 }
 
 @media (max-width: 700px) {
@@ -278,31 +228,34 @@ button:focus {
     #info-btn-4 {
         border-top: black solid 1px;        
     }
-    .h1 {
-        margin: 15px 0px;
-        padding: 0px;
-        font-size: 3rem;
-    }
-    
-    .label-for-form{
-        font-size: 1.5rem;
-        font-weight: bold;
-        padding: 1rem 0.25rem;
-    }
-    
-    .display-2,
-    .display-3 {
+    .display-2, .display-3 {
         flex-direction: column;
-        height: auto;
-    }
-
-    .block-2, .block-3 {
-        width: auto;
-        box-sizing: border-box;
     }
     .columns {
-        display: flex;
-    }    
+        flex-direction: column;
+        gap: 20px;
+    }
+    .column-1, .column-2 {
+        gap: 20px;
+    }
+    .payment-area-1, .payment-area-2 {
+        margin: 10px;
+    }
+    .label-for-form {
+        font-size: 1.2rem;
+    }
+    .forma {
+        font-size: 1.2rem;
+    }
+    .h1 {
+        font-size: 2.5rem;
+    }
+    .btn-1 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+        
     .display-2 .img-block,
     .display-2 .img-column-1,
     .display-3 .img-block,
