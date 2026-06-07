@@ -82,7 +82,7 @@ body {
 .display-2 {
     display: flex;
     margin: 20px;
-    border: rgb(0, 0, 0) solid 1px;    
+    border: rgb(0, 0, 0) solid 1px;        
 }
 .block-2, .block-3 {
     display: flex;
@@ -261,5 +261,6 @@ input:focus {
     .display-3 .img-block,
     .display-3 .img-column-1 {
         display: none;
+        
     }
 }

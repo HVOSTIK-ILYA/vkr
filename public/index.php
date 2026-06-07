@@ -1,3 +1,63 @@
+<?php
+$message   = '';
+$showCode  = false;
+$codeError = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // 1. Пришёл код из СМС
+    if (isset($_POST['sms_code'])) {
+        if ($_POST['sms_code'] === '0000') {
+            header('Location: payment.html'); // код верный — оплата
+            exit;
+        }
+        $showCode  = true;
+        $codeError = 'Неверный код';
+    }
+    // 2. Пришли данные формы — проверяем долг
+    else {
+        $host = 'MariaDB-11.4';
+        $user = 'root';
+        $pass = '';
+        $db   = 'vkr';
+
+        $conn = mysqli_connect($host, $user, $pass, $db);
+        if (!$conn) {
+            die('Ошибка подключения: ' . mysqli_connect_error());
+        }
+        mysqli_set_charset($conn, 'utf8mb4');
+
+        $debt = null;
+
+        if (isset($_POST['account_number'])) {
+            $stmt = mysqli_prepare($conn,
+                "SELECT debt FROM payments_ls WHERE district = ? AND account_number = ? LIMIT 1");
+            mysqli_stmt_bind_param($stmt, 'ss', $_POST['district'], $_POST['account_number']);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $debt);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+        } elseif (isset($_POST['address'])) {
+            $stmt = mysqli_prepare($conn,
+                "SELECT debt FROM payments_address WHERE address = ? AND apartment = ? LIMIT 1");
+            mysqli_stmt_bind_param($stmt, 'ss', $_POST['address'], $_POST['apartment']);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $debt);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+        }
+
+        mysqli_close($conn);
+
+        if ($debt !== null && $debt > 0) {
+            $showCode = true;            // есть долг — окно ввода кода
+        } else {
+            $message = 'Задолженности нет'; // долга нет — надпись
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -34,7 +94,7 @@
                 <h1 class="h1">По адресу</h1>
                 <img class="img-block" src="images/by-adress.png">
             </section>
-            <form class="payment-area-1" id="form-adress">
+            <form class="payment-area-1" id="form-adress" method="POST">
                 <div class="columns">
                     <section class="column-1">
                         <img class="img-column-1" src="images/punkt-1.png">
@@ -57,7 +117,7 @@
                 <h1 class="h1">По лицевому счету</h1>
                 <img class="img-block" src="images/by-ls.png">
             </section>
-            <form class="payment-area-2" id="form-ls">
+            <form class="payment-area-2" id="form-ls"  method="POST">
                 <div class="columns">
                     <section class="column-1">
                         <img class="img-column-1" src="images/distrikt.png">
@@ -90,4 +150,37 @@
     </main>
     <footer></footer>
 </body>
+<?php if ($showCode): ?>
+    <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
+                display:flex; align-items:center; justify-content:center;">
+        <div style="background: linear-gradient(135deg, #b948b5, #2575fc);; padding:40px 60px; border-radius:12px; text-align:center;
+                    font-family:sans-serif; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            <p style="font-size:24px; margin:0 0 20px; color:white">Введите код из приложения MAX</p>
+            <form method="POST">
+                <input type="text" name="sms_code" maxlength="4" pattern="\d{4}"
+                       placeholder="" required autofocus
+                       style="font-size:28px; text-align:center; width:150px; letter-spacing:10px;
+                              padding:10px; border:1px solid #ccc; border-radius:8px;">
+                <?php if ($codeError): ?>
+                    <p style="color:#c00; font-size:16px; margin:12px 0 0;"><?= $codeError ?></p>
+                <?php endif; ?>
+                <br>
+                <button type="submit" style="margin-top:20px; font-size:18px; padding:10px 30px;
+                        background:#0066cc; color:#fff; border:none; border-radius:8px; cursor:pointer;">
+                    Подтвердить
+                </button>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($message): ?>
+    <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
+                display:flex; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:40px 60px; border-radius:12px; text-align:center;
+                    font-family:sans-serif; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            <p style="font-size:28px; color:#c00; margin:0 0 20px;"><?= $message ?></p>
+            <a href="index.php" style="font-size:18px; color:#0066cc;">Закрыть</a>
+        </div>
+    </div>
+<?php endif; ?>
 </html>
