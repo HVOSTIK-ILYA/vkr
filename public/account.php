@@ -1,19 +1,19 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {   // не вошёл — на главную
-    header('Location: index.php');
-    exit;
-}
+    session_start();
+    if (!isset($_SESSION['user_id'])) {   // не вошёл — на главную
+        header('Location: index.php');
+        exit;
+    }
 
-$conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
-if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
-mysqli_set_charset($conn, 'utf8mb4');
+    $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
+    if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
+    mysqli_set_charset($conn, 'utf8mb4');
 
-$stmt = mysqli_prepare($conn,
-    "SELECT details, amount FROM payments WHERE user_id = ? AND amount > 0 ORDER BY id");
-mysqli_stmt_bind_param($stmt, 'i', $_SESSION['user_id']);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+    $stmt = mysqli_prepare($conn,
+        "SELECT details, amount FROM payments WHERE user_id = ? AND amount > 0 ORDER BY id");
+    mysqli_stmt_bind_param($stmt, 'i', $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -30,7 +30,7 @@ $result = mysqli_stmt_get_result($stmt);
             <span class="logo-text">Новосибирскэнергосбыт</span>
         </div>
         <div class="popout-container">
-            <button id="accountBtn" class="account-Btn">Личный кабинет</button>
+            <a href="logout.php" class="account-Btn">Выйти</a>
         </div>
     </header>
 

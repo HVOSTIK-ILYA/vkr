@@ -21,6 +21,7 @@ body {
 .logo-text{
     font-size: 37px;
     font-weight: bold;
+    color: black;
 }
 .account-Btn{
     background-color: black;
