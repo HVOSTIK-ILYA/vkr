@@ -1,30 +1,57 @@
 <?php
-$message   = '';
-$showCode  = false;
-$codeError = '';
+session_start();
+$message      = '';
+$showCode     = false;  // окно кода из СМС (по долгу)
+$codeError    = '';
+$showMaxCode  = false;  // окно кода из приложения МАКС
+$maxCodeError = '';
+$showDownload = false;  // сообщение "скачайте МАКС"
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // 1. Пришёл код из СМС
+    // --- Код из СМС (по долгу) ---
     if (isset($_POST['sms_code'])) {
         if ($_POST['sms_code'] === '0000') {
-            header('Location: payment.html'); // код верный — оплата
+            header('Location: payment.html');
             exit;
         }
         $showCode  = true;
         $codeError = 'Неверный код';
     }
-    // 2. Пришли данные формы — проверяем долг
-    else {
-        $host = 'MariaDB-11.4';
-        $user = 'root';
-        $pass = '';
-        $db   = 'vkr';
-
-        $conn = mysqli_connect($host, $user, $pass, $db);
-        if (!$conn) {
-            die('Ошибка подключения: ' . mysqli_connect_error());
+    // --- Код из приложения МАКС ---
+    elseif (isset($_POST['max_code'])) {
+        if ($_POST['max_code'] === '0000') {
+            header('Location: account.php'); // верный код — в личный кабинет
+            exit;
         }
+        $showMaxCode  = true;
+        $maxCodeError = 'Неверный код';
+    }
+    // --- Проверка телефона в таблице users ---
+    elseif (isset($_POST['phone'])) {
+        $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
+        if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
+        mysqli_set_charset($conn, 'utf8mb4');
+
+        $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE phone = ? LIMIT 1");
+        mysqli_stmt_bind_param($stmt, 's', $_POST['phone']);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $userId);
+        $found = mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+
+        if ($found) {
+            $_SESSION['user_id'] = $userId;  // запомнили, кто вошёл
+            $showMaxCode = true;
+        } else {
+            $showDownload = true;
+        }
+    }
+    // --- Данные форм оплаты (адрес / лицевой счёт) ---
+    else {
+        $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
+        if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
         mysqli_set_charset($conn, 'utf8mb4');
 
         $debt = null;
@@ -50,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_close($conn);
 
         if ($debt !== null && $debt > 0) {
-            $showCode = true;            // есть долг — окно ввода кода
+            $showCode = true;
         } else {
-            $message = 'Задолженности нет'; // долга нет — надпись
+            $message = 'Задолженности нет';
         }
     }
 }
@@ -73,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <span class="logo-text">Новосибирскэнергосбыт</span>
         </div>
         <div class="popout-container">
-            <button id="accountBtn" class="account-btn">Личный кабинет</button>            
+            <button id="accountBtn" class="account-Btn">Личный кабинет</button>            
         </div>        
     </header>
     <main>
@@ -189,8 +216,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ol>
         </div>
     </div>
+    <div class="info-overlay" id="modal-phone">
+        <div class="info-box">
+            <h2>Вход в личный кабинет</h2>
+            <form method="POST">
+                <input type="text" id="phoneInput" name="phone"
+                    placeholder="+7 (000) 000-00-00" required
+                    style="font-size:20px; padding:10px; width:230px; text-align:center;">
+                <br>
+                <button type="submit" class="modal-submit">Продолжить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Окно: код из приложения МАКС (номер найден) -->
+    <?php if ($showMaxCode): ?>
+    <div class="info-overlay open">
+        <div class="info-box">
+            <h2>Код из приложения МАКС</h2>
+            <form method="POST">
+                <input type="text" name="max_code" maxlength="4" pattern="\d{4}"
+                    placeholder="0000" required autofocus
+                    style="font-size:26px; padding:10px; width:140px; text-align:center; letter-spacing:8px;">
+                <?php if ($maxCodeError): ?>
+                    <p style="color:#f88; margin:10px 0 0;"><?= $maxCodeError ?></p>
+                <?php endif; ?>
+                <br>
+                <button type="submit" class="modal-submit">Подтвердить</button>
+            </form>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Окно: предложение скачать МАКС (номер не найден) -->
+    <?php if ($showDownload): ?>
+    <div class="info-overlay open">
+        <div class="info-box">
+            <h2>Установите приложение МАКС</h2>
+            <p>Вашего номера нет в системе.<br>Скачайте МАКС, чтобы войти в личный кабинет.</p>
+            <a href="https://max.ru" target="_blank" class="modal-submit">Скачать МАКС</a>
+        </div>
+    </div>
+    <?php endif; ?>
+    
     <script>
-    // какая кнопка какое окно открывает
+        document.getElementById('accountBtn').onclick = () => document.getElementById('modal-phone').classList.add('open');
+
+        // маска телефона: +7 (000) 000-00-00
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.addEventListener('input', function () {
+            let d = this.value.replace(/\D/g, '');          // только цифры
+            if (d[0] === '7' || d[0] === '8') d = d.slice(1); // убрать ведущую 7/8
+            d = d.slice(0, 10);                              // максимум 10 цифр
+            let r = '+7';
+            if (d.length >= 1) r += ' (' + d.substring(0, 3);
+            if (d.length >= 4) r += ') ' + d.substring(3, 6);
+            if (d.length >= 7) r += '-' + d.substring(6, 8);
+            if (d.length >= 9) r += '-' + d.substring(8, 10);
+            this.value = r;
+        });
     document.getElementById('info-btn-1').onclick = () => document.getElementById('modal-1').classList.add('open');
     document.getElementById('info-btn-2').onclick = () => document.getElementById('modal-2').classList.add('open');
     document.getElementById('info-btn-3').onclick = () => document.getElementById('modal-3').classList.add('open');
@@ -201,6 +285,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         overlay.onclick = e => { if (e.target === overlay) overlay.classList.remove('open'); };
     });
     </script>
+    <script>
+const addressInput = document.getElementById('addressInput');
+
+
+addressInput.addEventListener('input', function () {
+    // словарь: что ввёл -> на что заменить
+    const map = {
+        'улица': 'ул. ',
+        'микрорайон': 'мкр-н. ',
+        'квартал': 'кв-л. '
+    };
+
+    // 1. Первое слово + пробел -> сокращение (если слово есть в словаре)
+    const m = this.value.match(/^([А-Яа-яЁёA-Za-z]+)\s/);
+    if (m) {
+        const word = m[1].toLowerCase(); // чтобы "Улица" и "улица" работали одинаково
+        if (map[word]) {
+            this.value = this.value.replace(/^[А-Яа-яЁёA-Za-z]+\s/, map[word]);
+        }
+    }
+
+    // 2. После запятой — первая буква названия заглавная
+    if (this.value.includes(',')) {
+        this.value = this.value.replace(/^(ул\. |мкр-н\. |кв-л\. )(\p{L})/u, (s, prefix, letter) => prefix + letter.toUpperCase());
+    }
+    if (this.value.includes(',')) {
+        this.value = this.value.replace(/^(ул\. )(\p{L})/u, (m, prefix, letter) => prefix + letter.toUpperCase());
+    }
+});
+
+// Проверка формата при отправке формы адреса
+document.getElementById('form-adress').addEventListener('submit', function (e) {
+    // формат: ул. Название, номер дома (цифры или цифры+буквы)
+    const pattern = /^ул\.\s*.+,\s*\d+[А-Яа-яA-Za-z]*$/;
+    if (!pattern.test(addressInput.value.trim())) {
+        e.preventDefault();
+        alert('Адрес должен быть в формате: ул. Название, 12 или 12А');
+    }
+});
+</script>
 </body>
 <?php if ($showCode): ?>
     <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);

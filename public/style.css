@@ -22,14 +22,18 @@ body {
     font-size: 37px;
     font-weight: bold;
 }
-.account-btn{
+.account-Btn{
     background-color: black;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
     text-decoration: none;
     border-radius: 10px;
-    font-weight: bold;
+    font-size: 1.5rem;
     border: none;
+}
+.account-Btn:hover {
+    background: rgb(92, 92, 92);
+    cursor: pointer;
 }
 .block-1{
     background-image: url('images/block-1-img.png');
@@ -310,3 +314,45 @@ input:focus {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.info-box input {
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+}
+.modal-submit {
+    margin-top: 18px;
+    padding: 10px 28px;
+    font-size: 16px;
+    background: #fff;
+    color: #1c1c1c;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.account-main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: sans-serif;
+}
+.account-title { font-size: 28px; margin-bottom: 24px; }
+
+.debt-cards { display: flex; flex-direction: column; gap: 16px; }
+.debt-card {
+    background: #1c1c1c;
+    color: #fff;
+    padding: 20px 28px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.debt-info { margin: 0; font-size: 17px; }
+.debt-amount { margin: 0; font-size: 22px; font-weight: bold; color: #ff6b6b; }
+
+.no-debt { font-size: 22px; color: green; text-align: center; margin-top: 40px; }
