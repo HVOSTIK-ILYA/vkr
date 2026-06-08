@@ -42,7 +42,7 @@ body {
     margin: 10px 20px 0;
     font-size: clamp(14px, 1.5vw, 20px);
     height: auto;
-    min-height: 520px;
+    min-height: 400px;
 }
 .auto-plata{
     width: clamp(200px, 40%, 570px);
@@ -263,4 +263,50 @@ input:focus {
         display: none;
         
     }
+}
+
+.info-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.6);
+    display: none;                 /* скрыто по умолчанию */
+    align-items: center;
+    justify-content: center;
+}
+.info-overlay.open { display: flex; }   /* показываем при клике */
+
+.info-box {
+    background: #000000;
+    color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    max-width: 460px;
+    text-align: left;
+    font-family: sans-serif;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.info-box h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 20px;
+}
+.info-box ol {
+    margin: 0;
+    padding-left: 22px;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.9;
+}
+.info-box li { margin-bottom: 8px; }
+
+.info-box .close-btn {
+    margin-top: 24px;
+    padding: 8px 24px;
+    font-size: 15px;
+    background: #fff;
+    color: #1c1c1c;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }

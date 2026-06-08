@@ -149,6 +149,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </main>
     <footer></footer>
+    <div class="info-overlay" id="modal-1">
+        <div class="info-box">
+            <h2>Для физических лиц мы предоставляем:</h2>
+            <ol>
+                <li>Детализацию счета</li>
+                <li>Поддержку если звонят по чужому адресу</li>
+            </ol>
+        </div>
+    </div>
+    <div class="info-overlay" id="modal-2">
+        <div class="info-box">
+            <h2>Для представителей органов власти мы предоставляем:</h2>
+            <ol>
+                <li>Обещанный платеж</li>
+                <li>Электронный документооборот</li>
+                <li>Калькулятор расчета стоимости внедрения ФСКУЭ</li>
+            </ol>
+        </div>
+    </div>
+    <div class="info-overlay" id="modal-3">
+        <div class="info-box">
+            <h2>Для юридических лиц мы предоставляем:</h2>
+            <ol>
+                <li>Заключить договор</li>
+                <li>Личный кабинет</li>
+                <li>Направить обращение</li>
+                <li>Установить электрозарядную станцию</li>
+            </ol>
+        </div>
+    </div>
+    <div class="info-overlay" id="modal-4">
+        <div class="info-box">
+            <h2>В сфере энергии мы предоставляем:</h2>
+            <ol>
+                <li>Направление обращения от участника СППС</li>
+                <li>Размещение рекламы в мобильном приложении «Платосфера»</li>
+                <li>Система платежей и переводов «Сфера энергии»</li>
+            </ol>
+        </div>
+    </div>
+    <script>
+    // какая кнопка какое окно открывает
+    document.getElementById('info-btn-1').onclick = () => document.getElementById('modal-1').classList.add('open');
+    document.getElementById('info-btn-2').onclick = () => document.getElementById('modal-2').classList.add('open');
+    document.getElementById('info-btn-3').onclick = () => document.getElementById('modal-3').classList.add('open');
+    document.getElementById('info-btn-4').onclick = () => document.getElementById('modal-4').classList.add('open');
+
+    // закрытие: по кнопке "Закрыть" и по клику на тёмный фон
+    document.querySelectorAll('.info-overlay').forEach(overlay => {        
+        overlay.onclick = e => { if (e.target === overlay) overlay.classList.remove('open'); };
+    });
+    </script>
 </body>
 <?php if ($showCode): ?>
     <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
