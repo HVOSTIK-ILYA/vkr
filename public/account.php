@@ -5,9 +5,7 @@
         exit;
     }
 
-    $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
-    if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
-    mysqli_set_charset($conn, 'utf8mb4');
+    require 'db.php';
 
     $stmt = mysqli_prepare($conn,
         "SELECT details, amount FROM payments WHERE user_id = ? AND amount > 0 ORDER BY id");

@@ -29,9 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // --- Проверка телефона в таблице users ---
     elseif (isset($_POST['phone'])) {
-        $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
-        if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
-        mysqli_set_charset($conn, 'utf8mb4');
+        require 'db.php';
 
         $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE phone = ? LIMIT 1");
         mysqli_stmt_bind_param($stmt, 's', $_POST['phone']);
@@ -50,9 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // --- Данные форм оплаты (адрес / лицевой счёт) ---
     else {
-        $conn = mysqli_connect('MariaDB-11.4', 'root', '', 'vkr');
-        if (!$conn) { die('Ошибка подключения: ' . mysqli_connect_error()); }
-        mysqli_set_charset($conn, 'utf8mb4');
+        require 'db.php';
 
         $debt = null;
 
