@@ -79,9 +79,11 @@ $amount = number_format($pay['debt'], 2, ',', ' ') . ' ₽';
             <?php if ($pay['type'] === 'ls'): ?>
                 <p class="pay-row">Район: <b><?= htmlspecialchars($pay['district']) ?></b></p>
                 <p class="pay-row">Лицевой счёт: <b><?= htmlspecialchars($pay['account']) ?></b></p>
-            <?php else: ?>
+            <?php elseif ($pay['type'] === 'address'): ?>
                 <p class="pay-row">Адрес: <b><?= htmlspecialchars($pay['address']) ?></b></p>
                 <p class="pay-row">Квартира: <b><?= htmlspecialchars($pay['apartment']) ?></b></p>
+            <?php else: ?>
+                <p class="pay-row"><b><?= htmlspecialchars($pay['details']) ?></b></p>
             <?php endif; ?>
 
             <p class="pay-label">Сумма задолженности</p>
@@ -118,6 +120,8 @@ $amount = number_format($pay['debt'], 2, ',', ' ') . ' ₽';
             <a href="index.php" class="pay-back">Вернуться на главную</a>
         </div>
     </main>
+
+    <?php include 'footer.php'; ?>
 
     <script>
         // форматирование номера карты по 4 цифры

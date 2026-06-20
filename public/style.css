@@ -2,7 +2,12 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     min-width: 360px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+main { flex: 1 0 auto; }
+.site-footer { flex-shrink: 0; }
 .site-header {
     display: flex;
     justify-content: space-between;
@@ -279,6 +284,11 @@ input:focus {
         margin-left: 20px;
         margin-right: 20px;
     }
+    .debt-card {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
 }
 
 .info-overlay {
@@ -384,5 +394,35 @@ input:focus {
 }
 .debt-info { margin: 0; font-size: 17px; }
 .debt-amount { margin: 0; font-size: 22px; font-weight: bold; color: #ff6b6b; }
+.debt-card form { margin: 0; }
+.debt-card .btn-1 { background: #fff; color: #1c1c1c; font-size: 1.1rem; padding: 10px 22px; }
+.debt-card .btn-1:hover { background: #ddd; }
 
 .no-debt { font-size: 22px; color: green; text-align: center; margin-top: 40px; }
+
+.site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 30px 20px;
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+}
+.gp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: #000;
+    border: 1px solid #a6a6a6;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+}
+.gp-badge:hover { background: #222; }
+.gp-icon { width: 32px; height: 32px; object-fit: contain; border-radius: 6px; }
+.gp-text { display: flex; flex-direction: column; line-height: 1.1; }
+.gp-small { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+.gp-big { font-size: 22px; font-weight: 500; }

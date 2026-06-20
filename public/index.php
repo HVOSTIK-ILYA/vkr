@@ -140,12 +140,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="columns">
                     <section class="column-1">
                         <img class="img-column-1" src="images/punkt-1.png">
-                        <label for="addressInput" class="label-for-form">Населенный пункт, улица (микрорайон, квартал, ДНП, иное), номер дома</label>
+                        <label for="addressInput" class="label-for-form">Улица, номер дома</label>
                         <input class="forma" type="text" id="addressInput" name="address" placeholder="Введите адрес" required>
                     </section>
                     <section class="column-2">
                         <img class="img-column-1" src="images/number-appartment.png">
-                        <label for="number-appartment-Input" class="label-for-form">Номер квартиры (если есть)</label>
+                        <label for="number-appartment-Input" class="label-for-form">Номер квартиры</label>
                         <input class="forma" type="text" id="number-appartment-Input" name="apartment" placeholder="Введите номер квартиры" maxlength="3" inputmode="numeric" pattern="\d{1,3}" required>
                     </section>
                 </div>
@@ -196,13 +196,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </main>
-    <footer></footer>
+    <?php include 'footer.php'; ?>
     <div class="info-overlay" id="modal-1">
         <div class="info-box">
             <h2>Для физических лиц мы предоставляем:</h2>
             <ol>
                 <li>Детализацию счета</li>
-                <li>Поддержку если звонят по чужому адресу</li>
+                <li>Поддержку при ошибочных начислениях</li>
             </ol>
         </div>
     </div>
@@ -220,10 +220,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="info-box">
             <h2>Для юридических лиц мы предоставляем:</h2>
             <ol>
-                <li>Заключить договор</li>
+                <li>Заключенный договор</li>
                 <li>Личный кабинет</li>
-                <li>Направить обращение</li>
-                <li>Установить электрозарядную станцию</li>
+                <li>Поддержку в направлении обращений</li>
+                <li>Установку электрозарядной станции</li>
             </ol>
         </div>
     </div>
@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ol>
                 <li>Направление обращения от участника СППС</li>
                 <li>Размещение рекламы в мобильном приложении «Платосфера»</li>
-                <li>Система платежей и переводов «Сфера энергии»</li>
+                <li>Систему платежей и переводов «Сфера энергии»</li>
             </ol>
         </div>
     </div>
