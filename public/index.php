@@ -6,6 +6,8 @@ $codeError    = '';
 $showMaxCode  = false;  // окно кода из приложения МАКС
 $maxCodeError = '';
 $showDownload = false;  // сообщение "скачайте МАКС"
+$noDebt       = '';     // '', 'address' или 'ls' — нет задолженности
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -75,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($debt !== null && $debt > 0) {
             $showCode = true;
         } else {
-            $message = 'Задолженности нет';
+            $noDebt = isset($_POST['account_number']) ? 'ls' : 'address';
         }
     }
 }
@@ -87,11 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Новосибирскэнергосбыт</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="site-header">
-        <div class="logo-area">
+        <div class="logo-area" onclick="location.href='index.php'">
             <img src="images/logo.png" alt="Логотип" class="logo-img">
             <span class="logo-text">Новосибирскэнергосбыт</span>
         </div>
@@ -132,8 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="btn">
                     <button class="btn-1" type="submit">Оплатить</button>
-                </div>                
-            </form>            
+                </div>
+                <?php if ($noDebt === 'address'): ?>
+                    <p class="no-debt">Задолженность отсутствует</p>
+                <?php endif; ?>
+            </form>
         </div>
         <div class="display-3">
             <section class="block-3">
@@ -167,8 +173,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="btn">
                     <button class="btn-1" type="submit">Оплатить</button>
-                </div>                
-            </form>            
+                </div>
+                <?php if ($noDebt === 'ls'): ?>
+                    <p class="no-debt">Задолженность отсутствует</p>
+                <?php endif; ?>
+            </form>
         </div>
     </main>
     <footer></footer>
@@ -228,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Окно: код из приложения МАКС (номер найден) -->
     <?php if ($showMaxCode): ?>
     <div class="info-overlay open">
-        <div class="info-box">
+        <div class="info-box centered">
             <h2>Код из приложения МАКС</h2>
             <form method="POST">
                 <input type="text" name="max_code" maxlength="4" pattern="\d{4}"
@@ -247,7 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Окно: предложение скачать МАКС (номер не найден) -->
     <?php if ($showDownload): ?>
     <div class="info-overlay open">
-        <div class="info-box">
+        <div class="info-box centered">
             <h2>Установите приложение МАКС</h2>
             <p>Вашего номера нет в системе.<br>Скачайте МАКС, чтобы войти в личный кабинет.</p>
             <a href="https://max.ru" target="_blank" class="modal-submit">Скачать МАКС</a>
@@ -256,14 +265,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     
     <script>
-        document.getElementById('accountBtn').onclick = () => document.getElementById('modal-phone').classList.add('open');
-
-        // маска телефона: +7 (000) 000-00-00
+        document.getElementById('accountBtn').onclick = 
+            () => document.getElementById('modal-phone').classList.add('open');
+        
         const phoneInput = document.getElementById('phoneInput');
         phoneInput.addEventListener('input', function () {
-            let d = this.value.replace(/\D/g, '');          // только цифры
-            if (d[0] === '7' || d[0] === '8') d = d.slice(1); // убрать ведущую 7/8
-            d = d.slice(0, 10);                              // максимум 10 цифр
+            let d = this.value.replace(/\D/g, '');          
+            if (d[0] === '7' || d[0] === '8') d = d.slice(1); 
+            d = d.slice(0, 10);                              
             let r = '+7';
             if (d.length >= 1) r += ' (' + d.substring(0, 3);
             if (d.length >= 4) r += ') ' + d.substring(3, 6);
@@ -271,7 +280,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (d.length >= 9) r += '-' + d.substring(8, 10);
             this.value = r;
         });
-    document.getElementById('info-btn-1').onclick = () => document.getElementById('modal-1').classList.add('open');
+    document.getElementById('info-btn-1').onclick = 
+    () => document.getElementById('modal-1').classList.add('open');
     document.getElementById('info-btn-2').onclick = () => document.getElementById('modal-2').classList.add('open');
     document.getElementById('info-btn-3').onclick = () => document.getElementById('modal-3').classList.add('open');
     document.getElementById('info-btn-4').onclick = () => document.getElementById('modal-4').classList.add('open');
@@ -311,15 +321,34 @@ addressInput.addEventListener('input', function () {
     }
 });
 
-// Проверка формата при отправке формы адреса
+
 document.getElementById('form-adress').addEventListener('submit', function (e) {
-    // формат: ул. Название, номер дома (цифры или цифры+буквы)
     const pattern = /^ул\.\s*.+,\s*\d+[А-Яа-яA-Za-z]*$/;
     if (!pattern.test(addressInput.value.trim())) {
         e.preventDefault();
         alert('Адрес должен быть в формате: ул. Название, 12 или 12А');
     }
 });
+</script>
+<script>
+    // не даём браузеру самому восстанавливать прокрутку
+    history.scrollRestoration = 'manual';
+
+    // запоминаем позицию перед отправкой любой формы
+    document.querySelectorAll('form').forEach(f => {
+        f.addEventListener('submit', () => {
+            sessionStorage.setItem('scrollY', window.scrollY);
+        });
+    });
+
+    // возвращаем позицию после перезагрузки
+    window.addEventListener('load', () => {
+        const y = sessionStorage.getItem('scrollY');
+        if (y !== null) {
+            window.scrollTo(0, parseInt(y));
+            sessionStorage.removeItem('scrollY');
+        }
+    });
 </script>
 </body>
 <?php if ($showCode): ?>
@@ -342,16 +371,6 @@ document.getElementById('form-adress').addEventListener('submit', function (e) {
                     Подтвердить
                 </button>
             </form>
-        </div>
-    </div>
-<?php endif; ?>
-<?php if ($message): ?>
-    <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
-                display:flex; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:40px 60px; border-radius:12px; text-align:center;
-                    font-family:sans-serif; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
-            <p style="font-size:28px; color:#c00; margin:0 0 20px;"><?= $message ?></p>
-            <a href="index.php" style="font-size:18px; color:#0066cc;">Закрыть</a>
         </div>
     </div>
 <?php endif; ?>

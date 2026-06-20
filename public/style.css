@@ -13,6 +13,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 .logo-img{
     width: 50px;
@@ -275,11 +276,11 @@ input:focus {
     inset: 0;
     z-index: 9999;
     background: rgba(0,0,0,0.6);
-    display: none;                 /* скрыто по умолчанию */
+    display: none;                 
     align-items: center;
     justify-content: center;
 }
-.info-overlay.open { display: flex; }   /* показываем при клике */
+.info-overlay.open { display: flex; }   
 
 .info-box {
     background: #000000;
@@ -333,6 +334,9 @@ input:focus {
     text-decoration: none;
     display: inline-block;
 }
+
+#modal-phone .info-box { text-align: center; }
+.info-box.centered { text-align: center; }
 
 .account-main {
     max-width: 800px;
