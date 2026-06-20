@@ -101,6 +101,11 @@ body {
 .h1 {
     font-size: 5rem;
     text-align: center;
+    line-height: 1.1;
+    min-height: 2.2em;   /* место под 2 строки — высота блоков совпадает */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .img-block {
     height: 300px;
@@ -267,7 +272,12 @@ input:focus {
     .display-3 .img-block,
     .display-3 .img-column-1 {
         display: none;
-        
+
+    }
+    .info-box,
+    .code-box {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
 
@@ -334,9 +344,24 @@ input:focus {
     text-decoration: none;
     display: inline-block;
 }
-
+.modal-submit:hover {
+    background: #bcbcbc;
+}
 #modal-phone .info-box { text-align: center; }
 .info-box.centered { text-align: center; }
+
+.block-1-text a {
+    text-decoration: none;
+    display: inline-block;
+    background: linear-gradient(90deg, #ff763C, #4b69ff, #ff763C);
+    background-size: 200% auto;
+    background-position: 0% center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    transition: background-position .1s ease;
+}
 
 .account-main {
     max-width: 800px;

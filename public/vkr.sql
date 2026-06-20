@@ -64,7 +64,7 @@ CREATE TABLE `payments_address` (
 --
 
 INSERT INTO `payments_address` (`id`, `payment_id`, `user_id`, `address`, `apartment`, `debt`) VALUES
-(1, NULL, NULL, 'ул. Ленина 10', '5', 2300.50),
+(1, NULL, NULL, 'ул. Ленина, 10', '5', 2300.50),
 (2, NULL, NULL, 'ул. Мира 3', '12', 0.00);
 
 -- --------------------------------------------------------
